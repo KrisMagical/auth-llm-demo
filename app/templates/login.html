@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Login - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Login</h2>
+  <p class="note">Admin test account: <code>admin@example.com</code> / <code>Admin123456</code>.</p>
+
+  <label for="email">Email</label>
+  <input id="email" type="email" value="normal@example.com">
+
+  <label for="password">Password</label>
+  <input id="password" type="password" value="User123456">
+
+  <button onclick="loginUser()">Login</button>
+  <button class="secondary" onclick="logoutUser()">Logout</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function loginUser() {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        })
+      });
+      const body = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(body, null, 2);
+      const status = document.getElementById("status");
+      if (response.ok) {
+        localStorage.setItem("access_token", body.access_token);
+        status.textContent = "Login successful. Token saved to localStorage. You can now access Resource A or Resource B.";
+        status.className = "success";
+      } else {
+        status.textContent = body.detail || "Login failed.";
+        status.className = "error";
+      }
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("access_token");
+      document.getElementById("status").textContent = "Local token cleared.";
+      document.getElementById("status").className = "success";
+      document.getElementById("result").textContent = "";
+    }
+  </script>
+{% endblock %}

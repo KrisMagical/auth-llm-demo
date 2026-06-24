@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Username Check - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Username Moderation Debug</h2>
+  <p class="note">Without <code>OPENAI_API_KEY</code>, this uses the mock checker. Usernames matching mock risky keywords are rejected during registration. Real LLM moderation is for demonstrating the integration chain, not strict production accuracy.</p>
+
+  <label for="username">Username</label>
+  <input id="username" value="official_admin">
+
+  <button onclick="checkUsername()">Check</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function checkUsername() {
+      const response = await fetch("/api/debug/check-username", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({username: document.getElementById("username").value})
+      });
+      const body = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(body, null, 2);
+      document.getElementById("status").textContent = response.ok ? "Username check completed." : "Username check failed.";
+      document.getElementById("status").className = response.ok ? "success" : "error";
+    }
+  </script>
+{% endblock %}

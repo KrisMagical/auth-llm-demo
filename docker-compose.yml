@@ -1,0 +1,15 @@
+services:
+  auth-llm-demo:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      PORT: 8000
+      DATABASE_URL: sqlite:////app/data/auth_demo.db
+    volumes:
+      - auth_demo_data:/app/data
+
+volumes:
+  auth_demo_data:

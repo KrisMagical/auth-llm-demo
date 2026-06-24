@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Current User - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Current User</h2>
+  <p class="note">This page reads the JWT from <code>localStorage</code> and calls <code>GET /api/me</code>.</p>
+
+  <button onclick="loadMe()">Load Me</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function loadMe() {
+      const token = localStorage.getItem("access_token");
+      const status = document.getElementById("status");
+      const result = document.getElementById("result");
+      result.textContent = "";
+      if (!token) {
+        status.textContent = "No token found. Please login first.";
+        status.className = "error";
+        return;
+      }
+      const response = await fetch("/api/me", {
+        headers: {"Authorization": "Bearer " + token}
+      });
+      const body = await response.json();
+      result.textContent = JSON.stringify(body, null, 2);
+      if (response.ok) {
+        status.textContent = "Current user loaded.";
+        status.className = "success";
+      } else {
+        status.textContent = body.detail || "Failed to load current user.";
+        status.className = "error";
+      }
+    }
+  </script>
+{% endblock %}

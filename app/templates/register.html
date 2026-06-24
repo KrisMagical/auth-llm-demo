@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Register - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Register</h2>
+  <p class="note">Normal users are created with <code>role=user</code>. They can access Resource A, cannot access Resource B, and username moderation runs before account creation.</p>
+
+  <label for="username">Username</label>
+  <input id="username" value="normal_user">
+
+  <label for="email">Email</label>
+  <input id="email" type="email" value="normal@example.com">
+
+  <label for="password">Password</label>
+  <input id="password" type="password" value="User123456">
+
+  <button onclick="registerUser()">Register</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function registerUser() {
+      const status = document.getElementById("status");
+      const result = document.getElementById("result");
+      status.textContent = "";
+      status.className = "";
+      result.textContent = "";
+
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value
+        })
+      });
+      const body = await response.json();
+      result.textContent = JSON.stringify(body, null, 2);
+      if (response.ok) {
+        status.textContent = "Registration successful.";
+        status.className = "success";
+      } else {
+        status.textContent = body.detail || "Registration failed.";
+        status.className = "error";
+      }
+    }
+  </script>
+{% endblock %}

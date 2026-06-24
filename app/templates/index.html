@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Home - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Project Overview</h2>
+  <p>This demo shows registration, login, JWT authentication, Resource A/B authorization, and LLM / mock username moderation during registration.</p>
+
+  <ul>
+    <li>Register and login with email and password.</li>
+    <li>Resource A: all authenticated users can access it.</li>
+    <li>Resource B: only admin users can access it.</li>
+    <li>Registration calls an LLM or mock username checker.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Local Resource B test account</strong><br>
+    email: <code>admin@example.com</code><br>
+    password: <code>Admin123456</code><br>
+    Set a stronger <code>ADMIN_PASSWORD</code> in production.
+  </div>
+{% endblock %}

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Auth LLM Demo{% endblock %}</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --border: #d7dde5;
+        --ink: #18202a;
+        --muted: #5f6c7b;
+        --brand: #1756a9;
+        --success: #116b39;
+        --error: #b42318;
+        --panel: #f7f9fc;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--ink);
+        background: #eef2f7;
+        line-height: 1.5;
+      }
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      header {
+        margin-bottom: 20px;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+      nav a, .button-link {
+        color: #fff;
+        background: var(--brand);
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      main {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 22px;
+      }
+      label {
+        display: block;
+        margin-top: 14px;
+        font-weight: 700;
+      }
+      input {
+        width: 100%;
+        max-width: 420px;
+        display: block;
+        margin-top: 6px;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 15px;
+      }
+      button {
+        margin-top: 16px;
+        padding: 10px 14px;
+        border: 0;
+        border-radius: 6px;
+        color: #fff;
+        background: var(--brand);
+        cursor: pointer;
+        font-size: 15px;
+      }
+      button.secondary { background: #4b5563; }
+      .note {
+        color: var(--muted);
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 12px;
+        margin: 16px 0;
+      }
+      .success { color: var(--success); font-weight: 700; }
+      .error { color: var(--error); font-weight: 700; }
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        background: #111827;
+        color: #e5e7eb;
+        border-radius: 6px;
+        padding: 14px;
+      }
+      ul { padding-left: 22px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Auth LLM Demo</h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/register">Register</a>
+          <a href="/login">Login</a>
+          <a href="/me">Current User</a>
+          <a href="/resource-a">Resource A</a>
+          <a href="/resource-b">Resource B</a>
+          <a href="/demo-accounts">Test Account</a>
+          <a href="/debug-username">Username Check</a>
+          <a href="/docs">API Docs</a>
+        </nav>
+      </header>
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

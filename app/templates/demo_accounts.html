@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Test Account - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Test Account</h2>
+  <p class="note">The API returns non-sensitive account guidance. This page also documents the local default password for demo verification.</p>
+
+  <p><strong>Local default Resource B account</strong></p>
+  <ul>
+    <li>email: <code>admin@example.com</code></li>
+    <li>password: <code>Admin123456</code></li>
+  </ul>
+  <p>Production deployments should set a stronger <code>ADMIN_PASSWORD</code>.</p>
+
+  <button onclick="loadDemoAccounts()">Load Demo Account Info</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function loadDemoAccounts() {
+      const response = await fetch("/api/demo-accounts");
+      const body = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(body, null, 2);
+      document.getElementById("status").textContent = response.ok ? "Demo account info loaded." : "Failed to load demo account info.";
+      document.getElementById("status").className = response.ok ? "success" : "error";
+    }
+  </script>
+{% endblock %}

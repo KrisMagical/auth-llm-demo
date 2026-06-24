@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Resource B - Auth LLM Demo{% endblock %}
+{% block content %}
+  <h2>Resource B</h2>
+  <p class="note">Normal users cannot access Resource B. The admin test account can access it.</p>
+
+  <button onclick="accessResourceB()">Access Resource B</button>
+  <p id="status"></p>
+  <pre id="result"></pre>
+
+  <script>
+    async function accessResourceB() {
+      const token = localStorage.getItem("access_token");
+      const status = document.getElementById("status");
+      if (!token) {
+        status.textContent = "No token found. Please login first.";
+        status.className = "error";
+        return;
+      }
+      const response = await fetch("/api/resource-b", {
+        headers: {"Authorization": "Bearer " + token}
+      });
+      const body = await response.json();
+      document.getElementById("result").textContent = JSON.stringify(body, null, 2);
+      status.textContent = response.ok ? "Resource B loaded." : (body.detail || "Access failed.");
+      status.className = response.ok ? "success" : "error";
+    }
+  </script>
+{% endblock %}
