@@ -107,3 +107,22 @@ export BASE_URL=https://your-public-url
 - `OPENAI_API_KEY` 未配置：系统使用 mock checker。
 - SQLite 数据丢失：免费云平台文件系统可能非持久化，生产建议使用 PostgreSQL / MySQL。
 - admin 默认密码：Demo 可用，生产应修改 `ADMIN_PASSWORD`。
+
+## DeepSeek Provider on Render / Railway
+
+Cloud deployment can choose one of three username moderation modes:
+
+1. Configure no real LLM key and use the mock checker.
+2. Configure OpenAI-compatible variables and use the OpenAI provider.
+3. Configure DeepSeek variables and use the DeepSeek provider.
+
+DeepSeek environment variables:
+
+```env
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your-deepseek-api-key
+DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+```
+
+Do not commit a real `DEEPSEEK_API_KEY`. In Render, add these under Environment Variables. In Railway, add them under Variables. If `DEEPSEEK_API_KEY` is absent, the app automatically uses the mock checker.

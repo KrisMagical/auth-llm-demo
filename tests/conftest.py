@@ -15,6 +15,9 @@ os.environ.setdefault("ADMIN_PASSWORD", "Admin123456")
 os.environ.pop("OPENAI_API_KEY", None)
 os.environ.setdefault("OPENAI_MODEL", "gpt-4o-mini")
 os.environ.setdefault("LLM_PROVIDER", "openai")
+os.environ.pop("DEEPSEEK_API_KEY", None)
+os.environ.setdefault("DEEPSEEK_MODEL", "deepseek-chat")
+os.environ.setdefault("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 
 if TEST_DB_PATH.exists():
     TEST_DB_PATH.unlink()

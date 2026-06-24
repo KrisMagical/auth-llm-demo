@@ -234,3 +234,20 @@ mock checker 用固定敏感词表覆盖本地验收场景，例如 `official_ad
 - `.env` 不应提交到 GitHub。
 - 生产环境应使用 HTTPS。
 - LLM 用户名审核不作为严格内容安全系统。
+
+## DeepSeek Provider Update
+
+The project now supports a DeepSeek provider in addition to the existing OpenAI-compatible provider and mock fallback. DeepSeek uses the same structured JSON moderation contract: `allowed`, `rejected`, or `uncertain`, plus the engineering fallback status `failed` when the provider returns invalid JSON or raises an exception.
+
+When `LLM_PROVIDER=deepseek` and `DEEPSEEK_API_KEY` is not configured, the system falls back to the local mock checker so the Demo remains runnable without external network or paid API credentials. This update only adds provider support; it does not claim that a real DeepSeek API call has been verified in this environment.
+
+DeepSeek environment variables:
+
+```env
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your-deepseek-api-key
+DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+```
+
+No real DeepSeek API key is committed, and the public URL remains to be filled after real cloud deployment.

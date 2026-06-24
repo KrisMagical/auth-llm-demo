@@ -600,3 +600,31 @@ curl -X POST $BASE_URL/api/debug/check-username \
 - SQLite 在部分免费云平台重启后可能丢失本地数据：生产建议使用托管 PostgreSQL / MySQL。
 - admin 密码生产环境应修改：不要长期使用 `Admin123456`。
 - `/docs` 可用于快速验收 API 是否启动成功。
+
+## DeepSeek API Support
+
+DeepSeek API is OpenAI-compatible, so this project calls it with the same `openai` Python SDK used by the OpenAI provider.
+
+Use these environment variables when you want username moderation to use DeepSeek:
+
+```env
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your-deepseek-api-key
+DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+```
+
+Notes:
+- Do not write `DEEPSEEK_API_KEY` into code or commit it to GitHub.
+- If `DEEPSEEK_API_KEY` is missing, the app automatically falls back to the local mock checker.
+- `deepseek-chat` is suitable for this username moderation Demo.
+- `deepseek-reasoner` is a reasoning model and is not the first choice for this simple structured moderation task.
+
+Render environment variable example:
+
+```env
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your-deepseek-api-key
+DEEPSEEK_MODEL=deepseek-chat
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+```

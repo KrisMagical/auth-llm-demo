@@ -53,3 +53,9 @@ docker run --rm -p 8000:8000 --env-file .env auth-llm-demo
 - 当前未真实公网部署时，Public URL 待填写。
 - 不应提交 .env 或真实 API Key。
 - 没有 OPENAI_API_KEY 时自动使用 mock checker。
+
+## 9. LLM Provider Notes
+
+- LLM provider support includes OpenAI-compatible / DeepSeek / mock fallback.
+- DeepSeek uses `LLM_PROVIDER=deepseek`, `DEEPSEEK_API_KEY`, `DEEPSEEK_MODEL`, and `DEEPSEEK_BASE_URL`.
+- No real API key should be committed. Without a real key, the Demo uses mock checker automatically.
